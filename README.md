@@ -10,7 +10,7 @@ Of course, **CreateRemoteThread** is preferred to not interrupt an application w
 
 **RemoteJacker** detours the SEH dispatcher to an executable code location the developer wants. It causes the thread to redirect to this area by throwing an exception.
 
-```
+```C
 ULong GetDispatcher(ULong ProcessId)
 {
 	NTPtr Dispatcher = (NTPtr)GetProcAddress(GetModuleHandleA("ntdll.dll"), "KiUserExceptionDispatcher");
@@ -28,7 +28,7 @@ ULong GetDispatcher(ULong ProcessId)
 
 The **GetDispatcher** function gets the virtual address of **KiUserExceptionDispatcher** and returns it as an integral type.
 
-```
+```C
 ULong MarkShellCode(ULong ProcessId, ULong Shellcode)
 {
 	HANDLE Process = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessId);
@@ -43,7 +43,7 @@ ULong MarkShellCode(ULong ProcessId, ULong Shellcode)
 
 The **MarkShellCode** function sets the memory region protections at the executable location (Or Shellcode) and returns the former page protection.
 
-```
+```C
 void SetDispatcher(ULong ProcessId, ULong Address, ULong ShellCode)
 {
 	HANDLE Process = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessId);
@@ -59,7 +59,7 @@ void SetDispatcher(ULong ProcessId, ULong Address, ULong ShellCode)
 
 The **SetDispatcher** function detours KiUserExceptionDispatcher in the target process.
 
-```
+```C
 void RemoteJack(ULong ProcessId, ULong Target)
 {
 	HANDLE Process = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessId);
@@ -77,7 +77,7 @@ The **RemoteJack** function causes an exception to occur at a thread's instructi
 
 Here is an example: 
 
-```
+```C
 int main(void)
 {
 	ULong PId = FindProcessIdFromProcessName(L"test.exe");
