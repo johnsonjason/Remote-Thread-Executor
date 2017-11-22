@@ -94,4 +94,4 @@ int main(void)
 
 ```
 
-This hijacks an already existent thread without opening any thread handles and you can choose the location that the thread gets hijacked at, unlike **GetThreadContext & SetThreadContext**. This method is also very simple to implement.
+This hijacks an already existing thread without opening any thread handles and you can choose the location that the thread gets hijacked at, unlike **GetThreadContext & SetThreadContext**. This method is also very simple to implement.
